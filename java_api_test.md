@@ -25,3 +25,28 @@
   String body = content.asString();
   assertEquals(body, "{\"data\":{\"users\":[]}}");
   ```
+
+- POST 의 경우 body 가 필요한 경우가 있느데, 아래과 같이 해결 할수 있음
+
+  ```java
+  @Test
+  public void 사용자정보를_등록_출력() throws IOException {
+      User user = User.builder()
+          .name("강현구")
+          .age(29)
+          .build();
+      ObjectMapper objectMapper = new ObjectMapper();
+      String json = objectMapper.writeValueAsString(user);
+  
+      Content content = Request.Post("http://localhost:4567/users")
+          .bodyString(json, ContentType.APPLICATION_JSON)
+          .execute()
+          .returnContent();
+      String body = content.asString();
+      assertEquals(body, "{\"data\":{\"user\":"+json+"}}");
+  }
+  ```
+
+  - `jackson` 을 사용해 클래스를 json `String`  으로 변환 했음
+  - 보통 모델 및 `Entity ` 가 있으니 해당 클래스를 인스턴스를 생성해 json `String` 으로 변환 하는 걸 추천
+
