@@ -27,17 +27,12 @@
 ## SQLAlchemy
 
 - ActiveRecord 패턴 인 줄 알았는데(django-orm 처럼), DataMapper 패턴 구현체라 기쁜 마음으로 사용
--  `persistance` 부분이 중요, 등록을 했는데, `id` 값이 할당이 안되 문서를 보니, `session` 사용 부분 `persistance` 관련 내용이 많이 있었음. 해당 문제는 별개로 `commit()` 을 안해서 생긴 문제
+- `persistance` 부분이 중요, 등록을 했는데, `id` 값이 할당이 안되 문서를 보니, `session` 사용 부분 `persistance` 관련 내용이 많이 있었음. 해당 문제는 별개로 `commit()` 을 안해서 생긴 문제
   - `add` 함수로 인스턴스가 저장 된 줄 알았는데, `commit` 추가 호출 해줘야함. 이점은 꽤 번거로움
   - 확실히 한단계 추상화 계층이 필요할 듯, 아마 `Repository`?! 이렇게 JAVA 와 비슷한 형태로...
 - `SQLAlchemy`  의`Base` 사용시 모델과 `app` 따로 `import` 하면 초기 테이블 생성 함수 콜할 때 모델들이 테이블로 생성되지 않음
   - `Base` 부분은 따로 공통으로 빼두어야 할 것 같음
-
-## Pytest
-
-- `before`, `after`  같은 관행(?) 적인 것이 없어서 적응이 힘들었음
-- `fixture` 가 위의 것들을 대신함 쓰는 방식이 놀라움
-  - `fixture`  선언된 함수들이 리턴 해주는 것을 테스트 함수에서 인자로 받을 수 있음
-  - 암시적이여서 이는 굉장히 편리한 방법이며 직관적이긴 하지만 규모가 커지면 명시적인게 가독성을 보장해 줄 것 같음
-  - 이로 인해 다른 프레임워크와 연동이 좋음 `fixture` 로 선언한 함수에 해당 프레임워크의 모듈을 호출하고 테스트에서 인자로 받아 간단히 처리 할 수 있음
-- 테스트 내부에 `print` 문에 보이지 않아 애먹었음. 애초에 좋지 않은 습관이라, 고쳐야 할 듯 대신 `assert`를 사용 해 일부로 틀리게해 해당 값을 확인
+- flask 과 연동 되어야 할 경우 아래 내용들을 참고 했음
+  - [How do I lazy init SQLAlchemy](https://stackoverflow.com/questions/22890049/how-do-i-lazy-init-sqlalchemy) : sqlalchemy 의 engine 은 flask 앱 실행시 초기화 할 수 있는 방법 공유
+  - [Flask and SQLAlchemy without the Flask-SQLAlchemy Extension ](https://dev.to/nestedsoftware/flask-and-sqlalchemy-without-the-flask-sqlalchemy-extension-3cf8) :  `flask-sqlalchemy`를 쓰지 않고 flask 과 sqlalchemy 를 통합해 쓰는 방법 공유
+  - [flask_sqlalchemy_starter](https://github.com/nestedsoftware/flask_sqlalchemy_starter) : 위의 방법으로 만들어진 boilerplate 
