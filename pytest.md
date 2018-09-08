@@ -7,6 +7,7 @@
 - 특정 파일을 실행 시키려 할 경우 : `PYTHONPATH=./. pytest test/test_pytest.py`
   - `PYTHONPATH=./. pytest` 를 쓰지 않으면 해당 프로젝트 모듈을 인식 하지 못함
   - 더 나은 해결 방법이 있을 지도 모름
+- `print`  함수 내용을 출력 하려면, `-s` 인자를 추가 해 줘야 한다
 
 ## 기본 사용 테스트 함수
 
